@@ -4,13 +4,13 @@ resource "aws_iam_role" "ecs-datadog-role" {
 }
 
 resource "aws_iam_role_policy_attachment" "ecs-datadog" {
-  role = "${aws_iam_role.ecs-datadog-role.name}"
+  role = aws_iam_role.ecs-datadog-role.name
   policy_arn = aws_iam_policy.ecs-datadog-role-policy.arn
 }
 
 resource "aws_iam_policy" "ecs-datadog-role-policy" {
   name = "${var.env}-${var.identifier}-datadog-agent-ecs-iam-role-policy"
-  policy = "${data.aws_iam_policy_document.ecs-datadog-role.json}"
+  policy = data.aws_iam_policy_document.ecs-datadog-role.json
 }
 
 data "aws_iam_policy_document" "ecs-datadog-role" {
