@@ -1,11 +1,11 @@
 resource "aws_iam_role" "ecs-datadog-role" {
   name = "${var.env}-${var.identifier}-jenkins-ecs-datadog-role"
-  assume_role_policy = "${data.aws_iam_policy_document.ecs-task-role-assume.json}"
+  assume_role_policy = data.aws_iam_policy_document.ecs-task-role-assume.json
 }
 
 resource "aws_iam_role_policy_attachment" "ecs-datadog" {
   role = "${aws_iam_role.ecs-datadog-role.name}"
-  policy_arn = "${aws_iam_policy.ecs-datadog-role-policy.arn}"
+  policy_arn = aws_iam_policy.ecs-datadog-role-policy.arn
 }
 
 resource "aws_iam_policy" "ecs-datadog-role-policy" {
