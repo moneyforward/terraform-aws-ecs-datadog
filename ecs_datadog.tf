@@ -28,7 +28,7 @@ resource "aws_ecs_task_definition" "datadog" {
      },
      {
       "name" : "DD_APM_ENABLED",
-      "value" : "true"
+      "value" : "${var.dd_apm_enabled}"
      },
      {
       "name": "DD_LOGS_ENABLED",
@@ -44,7 +44,7 @@ resource "aws_ecs_task_definition" "datadog" {
      },
      {
       "name" : "DD_APM_NON_LOCAL_TRAFFIC",
-      "value" : "true"
+      "value" : "${var.dd_apm_non_local_traffic}"
      },
      {
       "name" : "DD_TAGS",
