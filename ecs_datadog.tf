@@ -69,26 +69,30 @@ resource "aws_ecs_task_definition" "datadog" {
 EOF
 
   volume {
-    name = "docker-sock"
+    name      = "docker-sock"
     host_path = "/var/run/docker.sock"
   }
 
   volume {
-    name = "proc"
+    name      = "proc"
     host_path = "/proc/"
   }
 
   volume {
-    name = "cgroup"
+    name      = "cgroup"
     host_path = "/sys/fs/cgroup/"
   }
 }
 
 resource "aws_ecs_service" "datadog" {
-  name = "${var.env}-${var.identifier}-datadog-ecs-service"
-  cluster = var.ecs-cluster-id
+  name            = "${var.env}-${var.identifier}-datadog-ecs-service"
+  cluster         = var.ecs-cluster-id
   task_definition = aws_ecs_task_definition.datadog.arn
 
   # This allows running once for every instance
   scheduling_strategy = "DAEMON"
+
+  lifecycle {
+    ignore_changes = [task_definition]
+  }
 }
