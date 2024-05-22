@@ -98,6 +98,9 @@ resource "aws_iam_role" "datadog_aws_integration" {
   name               = "DatadogAWSIntegrationRole-${var.env}-${var.identifier}"
   description        = "Role for Datadog AWS Integration"
   assume_role_policy = data.aws_iam_policy_document.datadog_aws_integration_assume_role.json
+  lifecycle {
+    ignore_changes = [assume_role_policy]
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "datadog_aws_integration" {
